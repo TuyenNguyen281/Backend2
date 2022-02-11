@@ -22,6 +22,10 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import service.CatalogService;
+import service.ProductService;
+import service.implement.CatalogServiceImpl;
+import service.implement.ProductServiceImpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,7 +36,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories("repository")
-//@ComponentScan("com.codegym.cms")
+//@ComponentScan
 @EnableSpringDataWebSupport
 
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
@@ -42,6 +46,16 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    @Bean
+    public ProductService ProductService() {
+        return new ProductServiceImpl();
+    }
+
+    @Bean
+    public CatalogService CatalogService() {
+        return new CatalogServiceImpl();
     }
 
     //Cấu hình Thymleaf
